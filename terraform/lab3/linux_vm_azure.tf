@@ -25,7 +25,7 @@ resource "azurerm_network_interface" "gwiktorowski" {
 
     ip_configuration {
         name                          = "internal"
-        subnet_id                     = azurerm_subnet.example.id
+        subnet_id                     = azurerm_subnet.gwiktorowski.id
         private_ip_address_allocation = "Dynamic"
     }
 }
@@ -36,7 +36,7 @@ resource "azurerm_linux_virtual_machine" "gwiktorowski" {
   location            = azurerm_resource_group.gwiktorowski.location
   size                = "Standard_DS1_v2"
   admin_username      = "gwiktorowski"
-  password            = "gwiktorowski-1234!"
+  admin_password      = "gwiktorowski-1234!"
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.gwiktorowski.id,
