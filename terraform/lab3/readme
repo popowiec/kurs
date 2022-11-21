@@ -1,0 +1,58 @@
+# terraform
+- use hashicorp/azurerm provider with version 3.31
+
+# provider "azurerm"
+- leave just empty features{} block
+
+# azurerm_resource_group
+- as a name set $NICK-resources
+- location: westeurope
+
+# azurerm_virtual_network
+- as a name set $NICK-network
+- use your subnet as address space (10.X.0.0/16)
+- as location and resource_group_name use references to your main resource group
+
+# azurerm_subnet
+- as a subnet name use $NICK-private
+- as virtual_network_name and resource_group_name use references to your main resource group
+- as address_prefixes use the first available subnet: 10.X.1.0/24
+
+# azurerm_network_interface
+- as a network interface name set $NICK-nic
+- as location and resource_group_name use references to your main resource group
+- leave default template ip_configuration 
+
+# azurerm_linux_virtual_machine
+- as a linux virtual machine name name use $NICK-vm
+- as location and resource_group_name use references to your main resource group
+- as a vm size set Standard_DS1_v2, as admin_username: $NICK, password: $NICK-1234!, disable_password_authentication: false
+- as network_interface_ids use reference to your azurerm_network_interface
+
+- as the rest settings sleave defaults:
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+  }
+
+mszumski: 10.1.0.0/16
+gwiktorowski: 10.2.0.0/16
+wbialas: 10.3.0.0/16
+jfrankiewicz: 10.4.0.0/16
+kkwasniak: 10.5.0.0/16
+ajanuszewski: 10.6.0.0/16
+dkokot: 10.7.0.0/16
+bdenisiuk: 10.8.0.0/16
+dskierski: 10.9.0.0/16
+mchrzan: 10.10.0.0/16
+rstaroszczyk: 10.11.0.0/16
+
+Where you can find and ip address of your machine?

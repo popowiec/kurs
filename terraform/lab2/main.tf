@@ -8,16 +8,6 @@ terraform {
       version = "3.31.0"
     }
 
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.40.0"
-    }
-
-    nutanix = {
-      source  = "nutanix/nutanix"
-      version = "1.8.0-beta.1"
-    }
-
     azuread = {
       source = "hashicorp/azuread"
       version = "2.30.0"
@@ -34,7 +24,7 @@ provider "azurerm" {
 provider "azuread" {
   # Configuration options
 }
-/*
+
 resource "azuread_user" "test-user1-gwiktorowski" {
   user_principal_name = "test-user1-gwiktorowski@devopsmastersgmail.onmicrosoft.com"
   display_name        = "test-user1-gwiktorowski"
@@ -48,4 +38,4 @@ resource "azuread_user" "test-user2-gwiktorowski" {
   mail_nickname       = "gwiktorowski"
   password            = "Wiktor5643"
 }
-*/
+
