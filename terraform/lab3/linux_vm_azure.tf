@@ -23,20 +23,32 @@ resource "azurerm_network_interface" "gwiktorowski" {
   location            = azurerm_resource_group.gwiktorowski.location
   resource_group_name = azurerm_resource_group.gwiktorowski.name
 
-    ip_configuration {
-        name                          = "internal"
-        subnet_id                     = azurerm_subnet.gwiktorowski.id
-        private_ip_address_allocation = "Dynamic"
-    }
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.gwiktorowski.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.gwiktorowski.id
+  }
+}
+
+resource "azurerm_public_ip" "gwiktorowski" {
+  name                = "gwiktorowski-public-ip"
+  resource_group_name = azurerm_resource_group.gwiktorowski.name
+  location            = azurerm_resource_group.gwiktorowski.location
+  allocation_method   = "Static"
+
+  tags = {
+    environment = "Production"
+  }
 }
 
 resource "azurerm_linux_virtual_machine" "gwiktorowski" {
-  name                = "gwiktorowski-vm"
-  resource_group_name = azurerm_resource_group.gwiktorowski.name
-  location            = azurerm_resource_group.gwiktorowski.location
-  size                = "Standard_DS1_v2"
-  admin_username      = "gwiktorowski"
-  admin_password      = "gwiktorowski-1234!"
+  name                            = "gwiktorowski-vm"
+  resource_group_name             = azurerm_resource_group.gwiktorowski.name
+  location                        = azurerm_resource_group.gwiktorowski.location
+  size                            = "Standard_DS1_v2"
+  admin_username                  = "gwiktorowski"
+  admin_password                  = "gwiktorowski-1234!"
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.gwiktorowski.id,
